@@ -1,4 +1,4 @@
-let N = 2500;
+  let N = 2500;
         let listePlaces = [];
         let listeGagnants = [];
         let interval = null;
@@ -186,17 +186,12 @@ let N = 2500;
                 return;
             }
 
-            // Démarrer le son de cœur qui bat
+            // Démarrer le son de cœur qui bat EN BOUCLE
             const sonCoeur = document.getElementById("sonCoeur");
             sonCoeur.currentTime = 0;
-            sonCoeur.volume = 0.7;
+            sonCoeur.volume = 0.8;
+            sonCoeur.loop = true; // Force la boucle
             sonCoeur.play();
-
-            // Démarrer le son de suspense
-            const son = document.getElementById("son");
-            son.currentTime = 0;
-            son.volume = 0.5;
-            son.play();
 
             const numeroEl = document.getElementById("numero");
             numeroEl.classList.remove("winner");
@@ -207,12 +202,18 @@ let N = 2500;
                 numeroEl.innerText = temp;
                 compteur++;
 
+                // Accélérer le battement de cœur vers la fin
+                if (compteur > 40) {
+                    sonCoeur.playbackRate = 1.3; // Accélération du rythme
+                }
+
                 if (compteur > 50) {
                     clearInterval(interval);
                     
-                    // Arrêter le son de cœur
+                    // Arrêter le son de cœur brutalement
                     sonCoeur.pause();
                     sonCoeur.currentTime = 0;
+                    sonCoeur.playbackRate = 1.0; // Reset du rythme
                     
                     tirageFinal();
                 }
@@ -320,3 +321,4 @@ let N = 2500;
             URL.revokeObjectURL(url);
             showAlert('✅', `Export réussi !<br>${listeGagnants.length} gagnant(s) exporté(s).`);
         }
+

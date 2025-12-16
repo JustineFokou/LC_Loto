@@ -72,31 +72,13 @@
             50% { opacity: 1; transform: scale(1.5); }
         }
 
-        /* Container principal avec layout */
+        /* Container principal */
         .container {
             position: relative;
             z-index: 10;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 30px;
-            align-items: start;
-        }
-
-        .left-section {
-            width: 100%;
-        }
-
-        .right-section {
-            position: sticky;
-            top: 20px;
-            max-height: calc(100vh - 40px);
-            overflow-y: auto;
         }
 
         /* Header avec logo */
@@ -646,16 +628,17 @@
             color: #0a4d0a;
         }
 
-        /* Historique à droite */
+        /* Historique en flex */
         .historique-container {
             background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 255, 255, 0.05));
             backdrop-filter: blur(20px);
             border: 2px solid #ffd700;
             border-radius: 20px;
-            padding: 25px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 100%;
             box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
             display: none;
-            height: 100%;
         }
 
         .historique-container.active {
@@ -664,39 +647,34 @@
 
         .historique-container h3 {
             color: #ffd700;
-            font-size: 1.8rem;
-            margin-bottom: 25px;
+            font-size: 2rem;
+            margin-bottom: 30px;
             text-align: center;
             text-transform: uppercase;
             letter-spacing: 2px;
-            position: sticky;
-            top: 0;
-            background: linear-gradient(135deg, rgba(26, 95, 26, 0.95), rgba(10, 77, 10, 0.95));
-            padding: 15px;
-            margin: -25px -25px 20px -25px;
-            border-radius: 20px 20px 0 0;
-            z-index: 10;
         }
 
         #listeGagnants {
             list-style: none;
             padding: 0;
             display: flex;
-            flex-direction: column;
-            gap: 12px;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
         }
 
         #listeGagnants li {
             background: linear-gradient(135deg, rgba(0, 255, 0, 0.15), rgba(255, 215, 0, 0.1));
-            padding: 18px 25px;
-            border-radius: 15px;
+            padding: 20px 30px;
+            border-radius: 20px;
             border: 3px solid #00ff00;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 900;
             color: #ffd700;
-            animation: slideInRight 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            animation: slideInScale 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            min-width: 120px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -718,40 +696,21 @@
         }
 
         #listeGagnants li:hover {
-            transform: scale(1.08) rotate(-1deg);
+            transform: scale(1.15) rotate(3deg);
             background: linear-gradient(135deg, rgba(0, 255, 0, 0.25), rgba(255, 215, 0, 0.15));
-            box-shadow: 0 10px 30px rgba(0, 255, 0, 0.5);
+            box-shadow: 0 12px 35px rgba(0, 255, 0, 0.4);
             border-color: #ffd700;
         }
 
-        @keyframes slideInRight {
+        @keyframes slideInScale {
             from {
                 opacity: 0;
-                transform: translateX(100px) rotate(10deg);
+                transform: scale(0.3) rotate(-10deg);
             }
             to {
                 opacity: 1;
-                transform: translateX(0) rotate(0deg);
+                transform: scale(1) rotate(0deg);
             }
-        }
-
-        /* Scrollbar pour la liste des gagnants */
-        .right-section::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .right-section::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-        }
-
-        .right-section::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #ffd700, #00ff00);
-            border-radius: 10px;
-        }
-
-        .right-section::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #00ff00, #ffd700);
         }
 
         /* Scrollbar personnalisée - Supprimée car pas nécessaire */
@@ -943,29 +902,6 @@
         }
 
         /* Responsive */
-        @media (max-width: 1200px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-
-            .right-section {
-                position: relative;
-                top: 0;
-                max-height: none;
-            }
-
-            #listeGagnants {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            #listeGagnants li {
-                min-width: 100px;
-            }
-        }
-
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
