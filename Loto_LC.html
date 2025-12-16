@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 Life Changers Awards - Tombola</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a4d0a 0%, #1a5f1a 50%, #0f3d0f 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Particules d'or flottantes */
+        .golden-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .golden-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #ffd700, #ffed4e);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: floatGolden 8s infinite ease-in-out;
+            box-shadow: 0 0 10px #ffd700;
+        }
+
+        @keyframes floatGolden {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px) scale(1); 
+                opacity: 0.6; 
+            }
+            50% { 
+                transform: translateY(-100px) translateX(50px) scale(1.2); 
+                opacity: 1; 
+            }
+        }
+
+        /* Étoiles scintillantes */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+            box-shadow: 0 0 5px white;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Container principal */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header avec logo */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: slideDown 1s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-container {
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            color: #ffd700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffd700, #ffed4e, #ffffff, #ffd700);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite, titleFloat 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .event-info {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 255, 255, 0.1));
+            backdrop-filter: blur(10px);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            padding: 15px 30px;
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+        .event-info p {
+            font-size: 1.1rem;
+            color: #ffd700;
+            margin: 5px 0;
+            font-weight: 600;
+        }
+
+        .event-info strong {
+            color: #ffffff;
+            font-size: 1.2rem;
+        }
+
+        /* Configuration du tirage */
+        .config-container {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px);
+            border: 3px solid #ffd700;
+            border-radius: 25px;
+            padding: 40px;
+            margin: 30px auto;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.3);
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { 
+                box-shadow: 0 20px 60px rgba(255, 215, 0, 0.3);
+            }
+            50% { 
+                box-shadow: 0 30px 80px rgba(255, 215, 0, 0.5);
+            }
+        }
+
+        .config-container h2 {
+            color: #ffd700;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.3rem;
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #00ff00;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        /* Zone du numéro gagnant */
+        .numero-container {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px);
+            border: 4px solid #ffd700;
+            border-radius: 30px;
+            padding: 80px 60px;
+            margin: 50px auto;
+            max-width: 700px;
+            min-height: 350px;
+            box-shadow: 
+                0 25px 70px rgba(255, 215, 0, 0.4),
+                inset 0 0 60px rgba(255, 215, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            animation: pulseGlow 3s ease-in-out infinite;
+            display: none;
+        }
+
+        .numero-container.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .numero-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmerSweep 3s infinite;
+        }
+
+        @keyframes shimmerSweep {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #numero {
+            font-size: 150px;
+            font-weight: 900;
+            color: #ffd700;
+            text-shadow: 
+                0 0 25px rgba(255, 215, 0, 0.9),
+                0 0 50px rgba(255, 215, 0, 0.7),
+                0 0 75px rgba(255, 215, 0, 0.5);
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        #numero.winner {
+            animation: winnerPulse 1s ease-in-out;
+            color: #00ff00;
+            text-shadow: 
+                0 0 30px rgba(0, 255, 0, 1),
+                0 0 60px rgba(0, 255, 0, 0.8),
+                0 0 90px rgba(0, 255, 0, 0.6);
+        }
+
+        @keyframes winnerPulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.2) rotate(5deg); }
+            50% { transform: scale(1.1) rotate(-5deg); }
+            75% { transform: scale(1.15) rotate(3deg); }
+        }
+
+        /* Boutons */
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+
+        button {
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        button:hover:not(:disabled)::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-config {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #0a4d0a;
+            font-size: 1.3rem;
+            padding: 20px 50px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00ff00, #00cc00);
+            color: white;
+            animation: btnGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes btnGlow {
+            0%, 100% { box-shadow: 0 8px 20px rgba(0, 255, 0, 0.3); }
+            50% { box-shadow: 0 8px 30px rgba(0, 255, 0, 0.6), 0 0 40px rgba(0, 255, 0, 0.4); }
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #0a4d0a;
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #ffffff, #e0e0e0);
+            color: #0a4d0a;
+        }
+
+        /* Historique en flex */
+        .historique-container {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px);
+            border: 2px solid #ffd700;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 100%;
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
+            display: none;
+        }
+
+        .historique-container.active {
+            display: block;
+        }
+
+        .historique-container h3 {
+            color: #ffd700;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        #listeGagnants {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        #listeGagnants li {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.15), rgba(255, 215, 0, 0.1));
+            padding: 20px 30px;
+            border-radius: 20px;
+            border: 3px solid #00ff00;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #ffd700;
+            animation: slideInScale 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            min-width: 120px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #listeGagnants li::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        #listeGagnants li:hover::before {
+            left: 100%;
+        }
+
+        #listeGagnants li:hover {
+            transform: scale(1.15) rotate(3deg);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.25), rgba(255, 215, 0, 0.15));
+            box-shadow: 0 12px 35px rgba(0, 255, 0, 0.4);
+            border-color: #ffd700;
+        }
+
+        @keyframes slideInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.3) rotate(-10deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        /* Scrollbar personnalisée - Supprimée car pas nécessaire */
+
+        /* Notifications personnalisées */
+        .custom-alert {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, rgba(26, 95, 26, 0.98), rgba(10, 77, 10, 0.98));
+            backdrop-filter: blur(20px);
+            border: 3px solid #ffd700;
+            border-radius: 25px;
+            padding: 40px 50px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            min-width: 400px;
+            text-align: center;
+            animation: alertPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        @keyframes alertPop {
+            0% {
+                transform: translate(-50%, -50%) scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .custom-alert.hide {
+            animation: alertHide 0.3s ease forwards;
+        }
+
+        @keyframes alertHide {
+            to {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .custom-alert .icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: iconBounce 0.6s ease infinite;
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .custom-alert .message {
+            color: #ffffff;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .custom-alert .btn-close {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #0a4d0a;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .custom-alert .btn-close:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+        }
+
+        .alert-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            opacity: 0;
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .alert-overlay.hide {
+            animation: fadeOut 0.3s ease forwards;
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; }
+        }
+
+        /* Confirm dialog */
+        .custom-confirm {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, rgba(26, 95, 26, 0.98), rgba(10, 77, 10, 0.98));
+            backdrop-filter: blur(20px);
+            border: 3px solid #ffd700;
+            border-radius: 25px;
+            padding: 40px 50px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            min-width: 450px;
+            text-align: center;
+            animation: alertPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        .custom-confirm .icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .custom-confirm .message {
+            color: #ffffff;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .custom-confirm .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .custom-confirm button {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .custom-confirm .btn-yes {
+            background: linear-gradient(135deg, #00ff00, #00cc00);
+            color: white;
+        }
+
+        .custom-confirm .btn-no {
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            color: white;
+        }
+
+        .custom-confirm button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Fleurs qui tombent */
+        .flower {
+            position: fixed;
+            font-size: 30px;
+            animation: fallDown 4s linear forwards;
+            pointer-events: none;
+            z-index: 9999;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+
+        @keyframes fallDown {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            #numero {
+                font-size: 100px;
+            }
+
+            .buttons-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            button {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .config-container, .numero-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Particules d'or -->
+    <div class="golden-particles" id="goldenParticles"></div>
+    
+    <!-- Étoiles -->
+    <div class="stars" id="stars"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-container">
+                <p class="logo">LIFE CHANGERS INTERNATIONAL ORGANISE</p>
+            </div>
+            <h1>LIFE CHANGERS<br>AWARDS</h1>
+            <div class="event-info">
+                <p>📅 <strong>Dimanche 21 Décembre 2025</strong> • À partir de 11 heures</p>
+                <p>📍 <strong>YAOUNDÉ</strong> - Palais des Congrès (situé au quartier BASTOS)</p>
+            </div>
+        </div>
+
+        <!-- Configuration du tirage -->
+        <div class="config-container" id="configContainer">
+            <h2>⚙️ CONFIGURATION DU TIRAGE</h2>
+            <div class="input-group">
+                <label for="nombreNumeros">🎫 Nombre total de numéros disponibles :</label>
+                <input type="number" id="nombreNumeros" min="1" max="10000" value="2500" placeholder="Ex: 2500">
+            </div>
+            <div style="text-align: center;">
+                <button class="btn-config" onclick="demarrerTombola()">
+                    ✅ DÉMARRER LA TOMBOLA
+                </button>
+            </div>
+        </div>
+
+        <!-- Zone du numéro -->
+        <div class="numero-container" id="numeroContainer">
+            <div id="numero">---</div>
+        </div>
+
+        <!-- Boutons -->
+        <div class="buttons-container" id="buttonsContainer" style="display: none;">
+            <button class="btn-primary" onclick="lancerTirage()">
+                🎰 LANCER LE TIRAGE
+            </button>
+            <button class="btn-warning" onclick="reinitialiser()">
+                🔄 RÉINITIALISER
+            </button>
+            <button class="btn-info" onclick="exportExcel()">
+                📤 EXPORTER EXCEL
+            </button>
+        </div>
+
+        <!-- Historique -->
+        <div class="historique-container" id="historiqueContainer">
+            <h3>🏆 GAGNANTS</h3>
+            <ul id="listeGagnants"></ul>
+        </div>
+    </div>
+
+    <audio id="son">
+        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3">
+    </audio>
+
+    <script>
+        let N = 2500;
+        let listePlaces = [];
+        let listeGagnants = [];
+        let interval = null;
+        let tombolaActive = false;
+
+        // Créer les particules d'or
+        function createGoldenParticles() {
+            const container = document.getElementById('goldenParticles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'golden-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 6) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Créer les étoiles
+        function createStars() {
+            const container = document.getElementById('stars');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(star);
+            }
+        }
+
+        createGoldenParticles();
+        createStars();
+
+        // Fonction pour afficher une alerte personnalisée
+        function showAlert(icon, message) {
+            const overlay = document.createElement('div');
+            overlay.className = 'alert-overlay';
+            
+            const alert = document.createElement('div');
+            alert.className = 'custom-alert';
+            alert.innerHTML = `
+                <div class="icon">${icon}</div>
+                <div class="message">${message}</div>
+                <button class="btn-close" onclick="closeAlert(this)">OK</button>
+            `;
+            
+            document.body.appendChild(overlay);
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                overlay.addEventListener('click', () => closeAlert(alert.querySelector('.btn-close')));
+            }, 100);
+        }
+
+        // Fonction pour fermer l'alerte
+        function closeAlert(btn) {
+            const alert = btn.closest('.custom-alert');
+            const overlay = document.querySelector('.alert-overlay');
+            
+            alert.classList.add('hide');
+            overlay.classList.add('hide');
+            
+            setTimeout(() => {
+                if (alert.parentNode) document.body.removeChild(alert);
+                if (overlay.parentNode) document.body.removeChild(overlay);
+            }, 300);
+        }
+
+        // Fonction pour afficher une confirmation personnalisée
+        function showConfirm(icon, message, onConfirm) {
+            const overlay = document.createElement('div');
+            overlay.className = 'alert-overlay';
+            
+            const confirm = document.createElement('div');
+            confirm.className = 'custom-confirm';
+            confirm.innerHTML = `
+                <div class="icon">${icon}</div>
+                <div class="message">${message}</div>
+                <div class="buttons">
+                    <button class="btn-yes">✅ OUI</button>
+                    <button class="btn-no">❌ NON</button>
+                </div>
+            `;
+            
+            document.body.appendChild(overlay);
+            document.body.appendChild(confirm);
+            
+            const btnYes = confirm.querySelector('.btn-yes');
+            const btnNo = confirm.querySelector('.btn-no');
+            
+            btnYes.onclick = () => {
+                closeConfirm(confirm, overlay);
+                onConfirm(true);
+            };
+            
+            btnNo.onclick = () => {
+                closeConfirm(confirm, overlay);
+                onConfirm(false);
+            };
+            
+            overlay.onclick = () => {
+                closeConfirm(confirm, overlay);
+                onConfirm(false);
+            };
+        }
+
+        // Fonction pour fermer la confirmation
+        function closeConfirm(confirm, overlay) {
+            confirm.classList.add('hide');
+            overlay.classList.add('hide');
+            
+            setTimeout(() => {
+                if (confirm.parentNode) document.body.removeChild(confirm);
+                if (overlay.parentNode) document.body.removeChild(overlay);
+            }, 300);
+        }
+
+        // Démarrer la tombola
+        function demarrerTombola() {
+            const input = document.getElementById('nombreNumeros');
+            const nombre = parseInt(input.value);
+
+            if (isNaN(nombre) || nombre < 1) {
+                showAlert('❌', 'Veuillez entrer un nombre valide (minimum 1)');
+                return;
+            }
+
+            if (nombre > 10000) {
+                showAlert('❌', 'Le nombre maximum est 10 000');
+                return;
+            }
+
+            N = nombre;
+            listePlaces = [];
+            listeGagnants = [];
+
+            for (let i = 1; i <= N; i++) {
+                listePlaces.push(i);
+            }
+
+            tombolaActive = true;
+
+            // Cacher la config et afficher le tirage
+            document.getElementById('configContainer').style.display = 'none';
+            document.getElementById('numeroContainer').classList.add('active');
+            document.getElementById('buttonsContainer').style.display = 'flex';
+            document.getElementById('historiqueContainer').classList.add('active');
+
+            showAlert('✅', `Tombola configurée avec ${N} numéros !<br>Vous pouvez maintenant lancer les tirages.`);
+        }
+
+        // Faire tomber des fleurs
+        function createFlowers() {
+            const flowers = ['🌸', '🌺', '🌼', '🌻', '🌷', '🌹', '💐', '🏵️', '⭐', '✨'];
+            
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => {
+                    const flower = document.createElement('div');
+                    flower.className = 'flower';
+                    flower.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+                    flower.style.left = Math.random() * 100 + '%';
+                    flower.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                    document.body.appendChild(flower);
+                    
+                    setTimeout(() => {
+                        if (flower.parentNode) {
+                            document.body.removeChild(flower);
+                        }
+                    }, 4000);
+                }, i * 80);
+            }
+        }
+
+        // Lancer le tirage
+        function lancerTirage() {
+            if (!tombolaActive) {
+                showAlert('❌', 'Veuillez d\'abord configurer la tombola !');
+                return;
+            }
+
+            if (listePlaces.length === 0) {
+                showAlert('🎊', 'Plus de numéros disponibles !<br>Tous les tirages ont été effectués.');
+                return;
+            }
+
+            const son = document.getElementById("son");
+            son.play();
+
+            const numeroEl = document.getElementById("numero");
+            numeroEl.classList.remove("winner");
+
+            let compteur = 0;
+            interval = setInterval(() => {
+                const temp = listePlaces[Math.floor(Math.random() * listePlaces.length)];
+                numeroEl.innerText = temp;
+                compteur++;
+
+                if (compteur > 40) {
+                    clearInterval(interval);
+                    tirageFinal();
+                }
+            }, 80);
+        }
+
+        // Tirage final
+        function tirageFinal() {
+            const index = Math.floor(Math.random() * listePlaces.length);
+            const numero = listePlaces[index];
+
+            listePlaces.splice(index, 1);
+            listeGagnants.push(numero);
+
+            const numeroEl = document.getElementById("numero");
+            numeroEl.innerText = numero;
+            numeroEl.classList.add("winner");
+
+            // Faire tomber les fleurs
+            createFlowers();
+
+            // Ajouter à l'historique
+            const li = document.createElement("li");
+            li.innerText = `🎉 Numéro ${numero}`;
+            document.getElementById("listeGagnants").prepend(li);
+
+            // Créer des confettis
+            createConfetti();
+        }
+
+        // Confettis
+        function createConfetti() {
+            for (let i = 0; i < 60; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'fixed';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-10px';
+                    confetti.style.width = '12px';
+                    confetti.style.height = '12px';
+                    confetti.style.background = ['#ffd700', '#00ff00', '#ffffff'][Math.floor(Math.random() * 3)];
+                    confetti.style.pointerEvents = 'none';
+                    confetti.style.zIndex = '9999';
+                    confetti.style.animation = 'fallDown 3s linear forwards';
+                    confetti.style.borderRadius = '50%';
+                    confetti.style.boxShadow = '0 0 10px currentColor';
+                    
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        if (confetti.parentNode) {
+                            document.body.removeChild(confetti);
+                        }
+                    }, 3000);
+                }, i * 40);
+            }
+        }
+
+        // Réinitialiser
+        function reinitialiser() {
+            showConfirm('⚠️', 'Voulez-vous vraiment réinitialiser la tombola ?<br>Tous les gagnants seront perdus.', (confirmed) => {
+                if (confirmed) {
+                    tombolaActive = false;
+                    listePlaces = [];
+                    listeGagnants = [];
+                    
+                    document.getElementById('configContainer').style.display = 'block';
+                    document.getElementById('numeroContainer').classList.remove('active');
+                    document.getElementById('buttonsContainer').style.display = 'none';
+                    document.getElementById('historiqueContainer').classList.remove('active');
+                    document.getElementById("numero").innerText = "---";
+                    document.getElementById("numero").classList.remove("winner");
+                    document.getElementById("listeGagnants").innerHTML = "";
+                    
+                    showAlert('✅', 'Tombola réinitialisée avec succès !');
+                }
+            });
+        }
+
+        // Export Excel
+        function exportExcel() {
+            if (listeGagnants.length === 0) {
+                showAlert('❌', 'Aucun gagnant à exporter !<br>Lancez au moins un tirage avant d\'exporter.');
+                return;
+            }
+
+            let csv = "Numéro Gagnant,Ordre de Tirage\n";
+            listeGagnants.forEach((n, index) => {
+                csv += `${n},${index + 1}\n`;
+            });
+
+            const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "Life_Changers_Awards_Gagnants.csv";
+            a.click();
+
+            URL.revokeObjectURL(url);
+            showAlert('✅', `Export réussi !<br>${listeGagnants.length} gagnant(s) exporté(s).`);
+        }
+    </script>
+
+</body>
+</html>
