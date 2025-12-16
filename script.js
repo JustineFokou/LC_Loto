@@ -1,8 +1,8 @@
 let N = 2500;
-let listePlaces = [];
-let listeGagnants = [];
-let interval = null;
-let tombolaActive = false;
+        let listePlaces = [];
+        let listeGagnants = [];
+        let interval = null;
+        let tombolaActive = false;
 
         // Créer les particules d'or
         function createGoldenParticles() {
@@ -149,7 +149,7 @@ let tombolaActive = false;
             document.getElementById('buttonsContainer').style.display = 'flex';
             document.getElementById('historiqueContainer').classList.add('active');
 
-            showAlert('✅', `Tombola configurée avec ${N} numéros !<br>Vous pouvez maintenant lancer les tirages.`);
+            showAlert('✅', `Tirage au sort configuré avec ${N} participants !<br>Vous pouvez maintenant lancer les tirages.`);
         }
 
         // Faire tomber des fleurs
@@ -177,16 +177,25 @@ let tombolaActive = false;
         // Lancer le tirage
         function lancerTirage() {
             if (!tombolaActive) {
-                showAlert('❌', 'Veuillez d\'abord configurer la tombola !');
+                showAlert('❌', 'Veuillez d\'abord configurer le tirage au sort !');
                 return;
             }
 
             if (listePlaces.length === 0) {
-                showAlert('🎊', 'Plus de numéros disponibles !<br>Tous les tirages ont été effectués.');
+                showAlert('🎊', 'Plus de participants disponibles !<br>Tous les tirages ont été effectués.');
                 return;
             }
 
+            // Démarrer le son de cœur qui bat
+            const sonCoeur = document.getElementById("sonCoeur");
+            sonCoeur.currentTime = 0;
+            sonCoeur.volume = 0.7;
+            sonCoeur.play();
+
+            // Démarrer le son de suspense
             const son = document.getElementById("son");
+            son.currentTime = 0;
+            son.volume = 0.5;
             son.play();
 
             const numeroEl = document.getElementById("numero");
@@ -198,11 +207,16 @@ let tombolaActive = false;
                 numeroEl.innerText = temp;
                 compteur++;
 
-                if (compteur > 40) {
+                if (compteur > 50) {
                     clearInterval(interval);
+                    
+                    // Arrêter le son de cœur
+                    sonCoeur.pause();
+                    sonCoeur.currentTime = 0;
+                    
                     tirageFinal();
                 }
-            }, 80);
+            }, 70);
         }
 
         // Tirage final
@@ -217,12 +231,17 @@ let tombolaActive = false;
             numeroEl.innerText = numero;
             numeroEl.classList.add("winner");
 
+            // Son de victoire
+            const sonVictoire = document.getElementById("sonVictoire");
+            sonVictoire.currentTime = 0;
+            sonVictoire.play();
+
             // Faire tomber les fleurs
             createFlowers();
 
             // Ajouter à l'historique
             const li = document.createElement("li");
-            li.innerText = `🎉 Numéro ${numero}`;
+            li.innerText = `🎉 ${numero}`;
             document.getElementById("listeGagnants").prepend(li);
 
             // Créer des confettis
@@ -259,7 +278,7 @@ let tombolaActive = false;
 
         // Réinitialiser
         function reinitialiser() {
-            showConfirm('⚠️', 'Voulez-vous vraiment réinitialiser la tombola ?<br>Tous les gagnants seront perdus.', (confirmed) => {
+            showConfirm('⚠️', 'Voulez-vous vraiment réinitialiser le tirage au sort ?<br>Tous les gagnants seront perdus.', (confirmed) => {
                 if (confirmed) {
                     tombolaActive = false;
                     listePlaces = [];
@@ -273,7 +292,7 @@ let tombolaActive = false;
                     document.getElementById("numero").classList.remove("winner");
                     document.getElementById("listeGagnants").innerHTML = "";
                     
-                    showAlert('✅', 'Tombola réinitialisée avec succès !');
+                    showAlert('✅', 'Tirage au sort réinitialisé avec succès !');
                 }
             });
         }

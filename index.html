@@ -8,67 +8,108 @@
 </head>
 <body>
 
-    <!-- Particules d'or -->
-    <div class="golden-particles" id="goldenParticles"></div>
+        <div class="golden-particles" id="goldenParticles"></div>
     
     <!-- Étoiles -->
     <div class="stars" id="stars"></div>
 
+    <!-- Rayons de lumière -->
+    <div class="light-rays">
+        <div class="light-ray"></div>
+        <div class="light-ray"></div>
+        <div class="light-ray"></div>
+        <div class="light-ray"></div>
+        <div class="light-ray"></div>
+    </div>
+
+    <!-- Halos lumineux -->
+    <div class="halo halo-1"></div>
+    <div class="halo halo-2"></div>
+    <div class="halo halo-3"></div>
+
     <div class="container">
         <!-- Header -->
         <div class="header">
+            <div class="title-lights">
+                <div class="title-light"></div>
+                <div class="title-light"></div>
+                <div class="title-light"></div>
+                <div class="title-light"></div>
+                <div class="title-light"></div>
+                <div class="title-light"></div>
+                <div class="title-light"></div>
+                <div class="title-light"></div>
+            </div>
             <div class="logo-container">
                 <p class="logo">LIFE CHANGERS INTERNATIONAL ORGANISE</p>
             </div>
-            <h1>LIFE CHANGERS<br>AWARDS</h1>
+            <h1><span>L</span><span>I</span><span>F</span><span>E</span> <span>C</span><span>H</span><span>A</span><span>N</span><span>G</span><span>E</span><span>R</span><span>S</span><br><span>A</span><span>W</span><span>A</span><span>R</span><span>D</span><span>S</span></h1>
             <div class="event-info">
                 <p>📅 <strong>Dimanche 21 Décembre 2025</strong> • À partir de 11 heures</p>
                 <p>📍 <strong>YAOUNDÉ</strong> - Palais des Congrès (situé au quartier BASTOS)</p>
             </div>
         </div>
 
-        <!-- Configuration du tirage -->
-        <div class="config-container" id="configContainer">
-            <h2>⚙️ CONFIGURATION DU TIRAGE</h2>
-            <div class="input-group">
-                <label for="nombreNumeros">🎫 Nombre total de numéros disponibles :</label>
-                <input type="number" id="nombreNumeros" min="1" max="10000" value="2500" placeholder="Ex: 2500">
+        <!-- Layout principal -->
+        <div class="main-content">
+            <!-- Section gauche -->
+            <div class="left-section">
+                <!-- Configuration du tirage -->
+                <div class="config-container" id="configContainer">
+                    <h2>⚙️ CONFIGURATION DU TIRAGE AU SORT</h2>
+                    <div class="input-group">
+                        <label for="nombreNumeros">🎫 Nombre total de participants :</label>
+                        <input type="number" id="nombreNumeros" min="1" max="10000" value="2500" placeholder="Ex: 2500">
+                    </div>
+                    <div style="text-align: center;">
+                        <button class="btn-config" onclick="demarrerTombola()">
+                            ✅ DÉMARRER LE TIRAGE AU SORT
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Zone du numéro -->
+                <div class="numero-container" id="numeroContainer">
+                    <div id="numero">---</div>
+                </div>
+
+                <!-- Boutons -->
+                <div class="buttons-container" id="buttonsContainer" style="display: none;">
+                    <button class="btn-primary" onclick="lancerTirage()">
+                        🎰 LANCER LE TIRAGE
+                    </button>
+                    <button class="btn-warning" onclick="reinitialiser()">
+                        🔄 RÉINITIALISER
+                    </button>
+                    <button class="btn-info" onclick="exportExcel()">
+                        📤 EXPORTER LES RÉSULTATS
+                    </button>
+                </div>
             </div>
-            <div style="text-align: center;">
-                <button class="btn-config" onclick="demarrerTombola()">
-                    ✅ DÉMARRER LA TOMBOLA
-                </button>
+
+            <!-- Section droite - Historique -->
+            <div class="right-section">
+                <div class="historique-container" id="historiqueContainer">
+                    <h3>🏆 GAGNANTS</h3>
+                    <ul id="listeGagnants"></ul>
+                </div>
             </div>
-        </div>
-
-        <!-- Zone du numéro -->
-        <div class="numero-container" id="numeroContainer">
-            <div id="numero">---</div>
-        </div>
-
-        <!-- Boutons -->
-        <div class="buttons-container" id="buttonsContainer" style="display: none;">
-            <button class="btn-primary" onclick="lancerTirage()">
-                🎰 LANCER LE TIRAGE
-            </button>
-            <button class="btn-warning" onclick="reinitialiser()">
-                🔄 RÉINITIALISER
-            </button>
-            <button class="btn-info" onclick="exportExcel()">
-                📤 EXPORTER EXCEL
-            </button>
-        </div>
-
-        <!-- Historique -->
-        <div class="historique-container" id="historiqueContainer">
-            <h3>🏆 GAGNANTS</h3>
-            <ul id="listeGagnants"></ul>
         </div>
     </div>
 
     <audio id="son">
-        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2355/2355-preview.mp3" type="audio/mpeg">
+        <source src="https://www.soundjay.com/misc/sounds/drum-roll-1.mp3" type="audio/mpeg">
     </audio>
+
+    <audio id="sonCoeur">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2487/2487-preview.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="sonVictoire">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2018/2018-preview.mp3" type="audio/mpeg">
+    </audio>
+
 
     <script src="script.js"></script>
 
