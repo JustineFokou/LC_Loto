@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 Life Changers Awards - Tombola</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Particules d'or -->
+    <div class="golden-particles" id="goldenParticles"></div>
+    
+    <!-- Étoiles -->
+    <div class="stars" id="stars"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-container">
+                <p class="logo">LIFE CHANGERS INTERNATIONAL ORGANISE</p>
+            </div>
+            <h1>LIFE CHANGERS<br>AWARDS</h1>
+            <div class="event-info">
+                <p>📅 <strong>Dimanche 21 Décembre 2025</strong> • À partir de 11 heures</p>
+                <p>📍 <strong>YAOUNDÉ</strong> - Palais des Congrès (situé au quartier BASTOS)</p>
+            </div>
+        </div>
+
+        <!-- Configuration du tirage -->
+        <div class="config-container" id="configContainer">
+            <h2>⚙️ CONFIGURATION DU TIRAGE</h2>
+            <div class="input-group">
+                <label for="nombreNumeros">🎫 Nombre total de numéros disponibles :</label>
+                <input type="number" id="nombreNumeros" min="1" max="10000" value="2500" placeholder="Ex: 2500">
+            </div>
+            <div style="text-align: center;">
+                <button class="btn-config" onclick="demarrerTombola()">
+                    ✅ DÉMARRER LA TOMBOLA
+                </button>
+            </div>
+        </div>
+
+        <!-- Zone du numéro -->
+        <div class="numero-container" id="numeroContainer">
+            <div id="numero">---</div>
+        </div>
+
+        <!-- Boutons -->
+        <div class="buttons-container" id="buttonsContainer" style="display: none;">
+            <button class="btn-primary" onclick="lancerTirage()">
+                🎰 LANCER LE TIRAGE
+            </button>
+            <button class="btn-warning" onclick="reinitialiser()">
+                🔄 RÉINITIALISER
+            </button>
+            <button class="btn-info" onclick="exportExcel()">
+                📤 EXPORTER EXCEL
+            </button>
+        </div>
+
+        <!-- Historique -->
+        <div class="historique-container" id="historiqueContainer">
+            <h3>🏆 GAGNANTS</h3>
+            <ul id="listeGagnants"></ul>
+        </div>
+    </div>
+
+    <audio id="son">
+        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3">
+    </audio>
+
+    <script src="script.js"></script>
+
+
+</body>
+</html>
