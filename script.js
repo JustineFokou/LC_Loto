@@ -1,324 +1,276 @@
-  let N = 2500;
-        let listePlaces = [];
-        let listeGagnants = [];
-        let interval = null;
-        let tombolaActive = false;
 
-        // Créer les particules d'or
-        function createGoldenParticles() {
-            const container = document.getElementById('goldenParticles');
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'golden-particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 8 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 6) + 's';
-                container.appendChild(particle);
+// ÉLÉMENTS DOM
+const configPanel = document.getElementById('configPanel');
+const drawingPanel = document.getElementById('drawingPanel');
+const numeroDisplay = document.getElementById('numero');
+const segmentDisplay = document.getElementById('segment');
+const winnersList = document.getElementById('winnersList');
+const totalInput = document.getElementById('totalParticipants');
+const heartbeatEffect = document.getElementById('heartbeatEffect');
+const winnerCount = document.getElementById('winnerCount');
+
+// VARIABLES DU JEU
+let participants = [];
+let winners = [];
+let isSpinning = false;
+let totalParticipants = 2500;
+const EXCLUDED_MAX = 200;
+
+// INITIALISATION DES EFFETS VISUELS
+function initVisualEffects() {
+    // Créer les étoiles flottantes
+    const starContainer = document.getElementById('starBackground');
+    for (let i = 0; i < 40; i++) {
+        const star = document.createElement('div');
+        star.className = 'star-particle';
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.animationDelay = `${Math.random() * 5}s`;
+        star.style.animationDuration = `${4 + Math.random() * 8}s`;
+        star.style.width = `${20 + Math.random() * 30}px`;
+        star.style.height = star.style.width;
+        starContainer.appendChild(star);
+    }
+    
+    // Créer les étoiles scintillantes
+    const starField = document.getElementById('starField');
+    for (let i = 0; i < 150; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.width = `${2 + Math.random() * 4}px`;
+        star.style.height = star.style.width;
+        star.style.animationDelay = `${Math.random() * 3}s`;
+        star.style.animationDuration = `${1 + Math.random() * 4}s`;
+        starField.appendChild(star);
+    }
+}
+
+// Démarrer le battement de cœur
+function startHeartbeat() {
+    heartbeatEffect.style.display = 'block';
+    const heartbeatSound = document.getElementById('heartbeatSound');
+    heartbeatSound.currentTime = 0;
+    heartbeatSound.volume = 0.5;
+    heartbeatSound.play();
+    
+    // Accélérer progressivement
+    setTimeout(() => { heartbeatSound.playbackRate = 1.2; }, 1000);
+    setTimeout(() => { heartbeatSound.playbackRate = 1.4; }, 2000);
+}
+
+// Arrêter le battement de cœur
+function stopHeartbeat() {
+    heartbeatEffect.style.display = 'none';
+    const heartbeatSound = document.getElementById('heartbeatSound');
+    heartbeatSound.pause();
+    heartbeatSound.currentTime = 0;
+    heartbeatSound.playbackRate = 1.0;
+}
+
+// DÉMARRER LA TOMBOLA
+function startTombola() {
+    totalParticipants = parseInt(totalInput.value);
+    if (totalParticipants <= EXCLUDED_MAX) {
+        alert(`Le nombre doit être supérieur à ${EXCLUDED_MAX}`);
+        return;
+    }
+    
+    // Initialiser la liste des participants
+    participants = [];
+    for (let i = EXCLUDED_MAX + 1; i <= totalParticipants; i++) {
+        participants.push(i);
+    }
+    
+    winners = [];
+    winnersList.innerHTML = '';
+    winnerCount.textContent = '0';
+    
+    // Afficher le panneau de tirage
+    configPanel.style.display = 'none';
+    drawingPanel.style.display = 'block';
+}
+
+// FAIRE TOURNER LA ROUE
+function spin() {
+    if (isSpinning || participants.length === 0) return;
+    
+    isSpinning = true;
+    const spinSound = document.getElementById('spinningSound');
+    spinSound.volume = 0.3;
+    spinSound.currentTime = 0;
+    spinSound.play();
+    
+    // Démarrer le battement de cœur
+    startHeartbeat();
+    
+    // Animation de rotation
+    let counter = 0;
+    const interval = setInterval(() => {
+        const randomIndex = Math.floor(Math.random() * participants.length);
+        numeroDisplay.textContent = participants[randomIndex];
+        counter++;
+        
+        if (counter > 50) {
+            clearInterval(interval);
+            spinSound.pause();
+            spinSound.currentTime = 0;
+            stopHeartbeat();
+            selectWinner();
+        }
+    }, 50);
+}
+
+// SÉLECTIONNER UN GAGNANT
+function selectWinner() {
+    if (participants.length === 0) return;
+    
+    // Sélection aléatoire
+    const winnerIndex = Math.floor(Math.random() * participants.length);
+    const winnerNumber = participants[winnerIndex];
+    
+    // Retirer le gagnant de la liste
+    participants.splice(winnerIndex, 1);
+    winners.push(winnerNumber);
+    
+    // Afficher le gagnant avec animation
+    numeroDisplay.textContent = winnerNumber;
+    numeroDisplay.classList.add('winner');
+    
+    // Déterminer le segment
+    const segments = ['🎯 PREMIER TIER', '⭐ DEUXIÈME TIER', '🏆 TROISIÈME TIER', '👑 VIP FINAL'];
+    const segmentIndex = Math.floor(Math.random() * segments.length);
+    segmentDisplay.textContent = segments[segmentIndex];
+    
+    // Jouer les sons de victoire
+    document.getElementById('winSound').play();
+    setTimeout(() => {
+        document.getElementById('crowdSound').play();
+    }, 500);
+    
+    // Ajouter à la liste des gagnants
+    const winnerItem = document.createElement('div');
+    winnerItem.className = 'winner-item';
+    winnerItem.innerHTML = `
+        <div class="winner-icon">🏆</div>
+        <div>
+            <strong>GAGNANT #${winners.length}</strong><br>
+            <span style="color: #FFD700; font-size: 1.5rem;">Numéro ${winnerNumber}</span><br>
+            <small>${segments[segmentIndex]}</small>
+        </div>
+    `;
+    winnersList.prepend(winnerItem);
+    
+    // Mettre à jour le compteur
+    winnerCount.textContent = winners.length;
+    
+    // Effets visuels
+    createConfetti();
+    createFireworks();
+    
+    // Réactiver le bouton après un délai
+    setTimeout(() => {
+        numeroDisplay.classList.remove('winner');
+        isSpinning = false;
+    }, 2000);
+}
+
+// CRÉER DES CONFETTIS
+function createConfetti() {
+    const colors = ['#FFD700', '#FF3366', '#00FF88', '#00AAFF', '#FFFFFF'];
+    
+    for (let i = 0; i < 150; i++) {
+        setTimeout(() => {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = `${Math.random() * 100}%`;
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.width = `${10 + Math.random() * 10}px`;
+            confetti.style.height = confetti.style.width;
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => confetti.remove(), 4000);
+        }, i * 10);
+    }
+}
+
+// CRÉER DES FEUX D'ARTIFICE
+function createFireworks() {
+    for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+            const centerX = Math.random() * window.innerWidth;
+            const centerY = Math.random() * (window.innerHeight / 2);
+            
+            for (let j = 0; j < 30; j++) {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.left = `${centerX}px`;
+                firework.style.top = `${centerY}px`;
+                firework.style.backgroundColor = 
+                    ['#FFD700', '#FF3366', '#00FF88'][Math.floor(Math.random() * 3)];
+                
+                const angle = (Math.PI * 2 * j) / 30;
+                const distance = 80 + Math.random() * 120;
+                firework.style.setProperty('--tx', `${Math.cos(angle) * distance}px`);
+                firework.style.setProperty('--ty', `${Math.sin(angle) * distance}px`);
+                
+                document.body.appendChild(firework);
+                setTimeout(() => firework.remove(), 1500);
             }
+        }, i * 300);
+    }
+}
+
+// RÉINITIALISER
+function resetAll() {
+    stopHeartbeat();
+    location.reload();
+}
+
+// EXPORTER LES RÉSULTATS
+function exportResults() {
+    if (winners.length === 0) {
+        alert("Aucun gagnant à exporter pour le moment.");
+        return;
+    }
+    
+    let csvContent = "Position;Numéro;Date\n";
+    winners.forEach((winner, index) => {
+        csvContent += `${index + 1};${winner};${new Date().toLocaleDateString('fr-FR')}\n`;
+    });
+    
+    const blob = new Blob(["\ufeff", csvContent], { type: "text/csv;charset=utf-8" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `gagnants_tombola_${new Date().getTime()}.csv`;
+    a.click();
+    
+    // Feedback visuel
+    const exportBtn = document.getElementById('exportBtn');
+    const originalText = exportBtn.innerHTML;
+    exportBtn.innerHTML = '<span>✅ EXPORTÉ!</span>';
+    exportBtn.style.background = "#4CAF50";
+    setTimeout(() => {
+        exportBtn.innerHTML = originalText;
+        exportBtn.style.background = "";
+    }, 2000);
+}
+
+// INITIALISER AU CHARGEMENT
+window.addEventListener('DOMContentLoaded', () => {
+    initVisualEffects();
+    
+    // Raccourcis clavier
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'Space' && !isSpinning && drawingPanel.style.display !== 'none') {
+            spin();
         }
-
-        // Créer les étoiles
-        function createStars() {
-            const container = document.getElementById('stars');
-            for (let i = 0; i < 50; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                container.appendChild(star);
-            }
+        if (e.code === 'Enter' && configPanel.style.display !== 'none') {
+            startTombola();
         }
-
-        createGoldenParticles();
-        createStars();
-
-        // Fonction pour afficher une alerte personnalisée
-        function showAlert(icon, message) {
-            const overlay = document.createElement('div');
-            overlay.className = 'alert-overlay';
-            
-            const alert = document.createElement('div');
-            alert.className = 'custom-alert';
-            alert.innerHTML = `
-                <div class="icon">${icon}</div>
-                <div class="message">${message}</div>
-                <button class="btn-close" onclick="closeAlert(this)">OK</button>
-            `;
-            
-            document.body.appendChild(overlay);
-            document.body.appendChild(alert);
-            
-            setTimeout(() => {
-                overlay.addEventListener('click', () => closeAlert(alert.querySelector('.btn-close')));
-            }, 100);
+        if (e.code === 'Escape') {
+            resetAll();
         }
-
-        // Fonction pour fermer l'alerte
-        function closeAlert(btn) {
-            const alert = btn.closest('.custom-alert');
-            const overlay = document.querySelector('.alert-overlay');
-            
-            alert.classList.add('hide');
-            overlay.classList.add('hide');
-            
-            setTimeout(() => {
-                if (alert.parentNode) document.body.removeChild(alert);
-                if (overlay.parentNode) document.body.removeChild(overlay);
-            }, 300);
-        }
-
-        // Fonction pour afficher une confirmation personnalisée
-        function showConfirm(icon, message, onConfirm) {
-            const overlay = document.createElement('div');
-            overlay.className = 'alert-overlay';
-            
-            const confirm = document.createElement('div');
-            confirm.className = 'custom-confirm';
-            confirm.innerHTML = `
-                <div class="icon">${icon}</div>
-                <div class="message">${message}</div>
-                <div class="buttons">
-                    <button class="btn-yes">✅ OUI</button>
-                    <button class="btn-no">❌ NON</button>
-                </div>
-            `;
-            
-            document.body.appendChild(overlay);
-            document.body.appendChild(confirm);
-            
-            const btnYes = confirm.querySelector('.btn-yes');
-            const btnNo = confirm.querySelector('.btn-no');
-            
-            btnYes.onclick = () => {
-                closeConfirm(confirm, overlay);
-                onConfirm(true);
-            };
-            
-            btnNo.onclick = () => {
-                closeConfirm(confirm, overlay);
-                onConfirm(false);
-            };
-            
-            overlay.onclick = () => {
-                closeConfirm(confirm, overlay);
-                onConfirm(false);
-            };
-        }
-
-        // Fonction pour fermer la confirmation
-        function closeConfirm(confirm, overlay) {
-            confirm.classList.add('hide');
-            overlay.classList.add('hide');
-            
-            setTimeout(() => {
-                if (confirm.parentNode) document.body.removeChild(confirm);
-                if (overlay.parentNode) document.body.removeChild(overlay);
-            }, 300);
-        }
-
-        // Démarrer la tombola
-        function demarrerTombola() {
-            const input = document.getElementById('nombreNumeros');
-            const nombre = parseInt(input.value);
-
-            if (isNaN(nombre) || nombre < 1) {
-                showAlert('❌', 'Veuillez entrer un nombre valide (minimum 1)');
-                return;
-            }
-
-            if (nombre > 10000) {
-                showAlert('❌', 'Le nombre maximum est 10 000');
-                return;
-            }
-
-            N = nombre;
-            listePlaces = [];
-            listeGagnants = [];
-
-            for (let i = 1; i <= N; i++) {
-                listePlaces.push(i);
-            }
-
-            tombolaActive = true;
-
-            // Cacher la config et afficher le tirage
-            document.getElementById('configContainer').style.display = 'none';
-            document.getElementById('numeroContainer').classList.add('active');
-            document.getElementById('buttonsContainer').style.display = 'flex';
-            document.getElementById('historiqueContainer').classList.add('active');
-
-            showAlert('✅', `Tirage au sort configuré avec ${N} participants !<br>Vous pouvez maintenant lancer les tirages.`);
-        }
-
-        // Faire tomber des fleurs
-        function createFlowers() {
-            const flowers = ['🌸', '🌺', '🌼', '🌻', '🌷', '🌹', '💐', '🏵️', '⭐', '✨'];
-            
-            for (let i = 0; i < 40; i++) {
-                setTimeout(() => {
-                    const flower = document.createElement('div');
-                    flower.className = 'flower';
-                    flower.innerText = flowers[Math.floor(Math.random() * flowers.length)];
-                    flower.style.left = Math.random() * 100 + '%';
-                    flower.style.animationDuration = (Math.random() * 3 + 3) + 's';
-                    document.body.appendChild(flower);
-                    
-                    setTimeout(() => {
-                        if (flower.parentNode) {
-                            document.body.removeChild(flower);
-                        }
-                    }, 4000);
-                }, i * 80);
-            }
-        }
-
-        // Lancer le tirage
-        function lancerTirage() {
-            if (!tombolaActive) {
-                showAlert('❌', 'Veuillez d\'abord configurer le tirage au sort !');
-                return;
-            }
-
-            if (listePlaces.length === 0) {
-                showAlert('🎊', 'Plus de participants disponibles !<br>Tous les tirages ont été effectués.');
-                return;
-            }
-
-            // Démarrer le son de cœur qui bat EN BOUCLE
-            const sonCoeur = document.getElementById("sonCoeur");
-            sonCoeur.currentTime = 0;
-            sonCoeur.volume = 0.8;
-            sonCoeur.loop = true; // Force la boucle
-            sonCoeur.play();
-
-            const numeroEl = document.getElementById("numero");
-            numeroEl.classList.remove("winner");
-
-            let compteur = 0;
-            interval = setInterval(() => {
-                const temp = listePlaces[Math.floor(Math.random() * listePlaces.length)];
-                numeroEl.innerText = temp;
-                compteur++;
-
-                // Accélérer le battement de cœur vers la fin
-                if (compteur > 40) {
-                    sonCoeur.playbackRate = 1.3; // Accélération du rythme
-                }
-
-                if (compteur > 50) {
-                    clearInterval(interval);
-                    
-                    // Arrêter le son de cœur brutalement
-                    sonCoeur.pause();
-                    sonCoeur.currentTime = 0;
-                    sonCoeur.playbackRate = 1.0; // Reset du rythme
-                    
-                    tirageFinal();
-                }
-            }, 70);
-        }
-
-        // Tirage final
-        function tirageFinal() {
-            const index = Math.floor(Math.random() * listePlaces.length);
-            const numero = listePlaces[index];
-
-            listePlaces.splice(index, 1);
-            listeGagnants.push(numero);
-
-            const numeroEl = document.getElementById("numero");
-            numeroEl.innerText = numero;
-            numeroEl.classList.add("winner");
-
-            // Son de victoire
-            const sonVictoire = document.getElementById("sonVictoire");
-            sonVictoire.currentTime = 0;
-            sonVictoire.play();
-
-            // Faire tomber les fleurs
-            createFlowers();
-
-            // Ajouter à l'historique
-            const li = document.createElement("li");
-            li.innerText = `🎉 ${numero}`;
-            document.getElementById("listeGagnants").prepend(li);
-
-            // Créer des confettis
-            createConfetti();
-        }
-
-        // Confettis
-        function createConfetti() {
-            for (let i = 0; i < 60; i++) {
-                setTimeout(() => {
-                    const confetti = document.createElement('div');
-                    confetti.style.position = 'fixed';
-                    confetti.style.left = Math.random() * 100 + '%';
-                    confetti.style.top = '-10px';
-                    confetti.style.width = '12px';
-                    confetti.style.height = '12px';
-                    confetti.style.background = ['#ffd700', '#00ff00', '#ffffff'][Math.floor(Math.random() * 3)];
-                    confetti.style.pointerEvents = 'none';
-                    confetti.style.zIndex = '9999';
-                    confetti.style.animation = 'fallDown 3s linear forwards';
-                    confetti.style.borderRadius = '50%';
-                    confetti.style.boxShadow = '0 0 10px currentColor';
-                    
-                    document.body.appendChild(confetti);
-                    
-                    setTimeout(() => {
-                        if (confetti.parentNode) {
-                            document.body.removeChild(confetti);
-                        }
-                    }, 3000);
-                }, i * 40);
-            }
-        }
-
-        // Réinitialiser
-        function reinitialiser() {
-            showConfirm('⚠️', 'Voulez-vous vraiment réinitialiser le tirage au sort ?<br>Tous les gagnants seront perdus.', (confirmed) => {
-                if (confirmed) {
-                    tombolaActive = false;
-                    listePlaces = [];
-                    listeGagnants = [];
-                    
-                    document.getElementById('configContainer').style.display = 'block';
-                    document.getElementById('numeroContainer').classList.remove('active');
-                    document.getElementById('buttonsContainer').style.display = 'none';
-                    document.getElementById('historiqueContainer').classList.remove('active');
-                    document.getElementById("numero").innerText = "---";
-                    document.getElementById("numero").classList.remove("winner");
-                    document.getElementById("listeGagnants").innerHTML = "";
-                    
-                    showAlert('✅', 'Tirage au sort réinitialisé avec succès !');
-                }
-            });
-        }
-
-        // Export Excel
-        function exportExcel() {
-            if (listeGagnants.length === 0) {
-                showAlert('❌', 'Aucun gagnant à exporter !<br>Lancez au moins un tirage avant d\'exporter.');
-                return;
-            }
-
-            let csv = "Numéro Gagnant,Ordre de Tirage\n";
-            listeGagnants.forEach((n, index) => {
-                csv += `${n},${index + 1}\n`;
-            });
-
-            const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-            const url = URL.createObjectURL(blob);
-
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "Life_Changers_Awards_Gagnants.csv";
-            a.click();
-
-            URL.revokeObjectURL(url);
-            showAlert('✅', `Export réussi !<br>${listeGagnants.length} gagnant(s) exporté(s).`);
-        }
-
+    });
+});

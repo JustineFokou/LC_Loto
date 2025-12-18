@@ -1,120 +1,120 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🏆 Life Changers Awards - Tombola</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>🏆 Life Changers Awards - Tombola Spectaculaire</title>
+<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
+
 <body>
 
-        <div class="golden-particles" id="goldenParticles"></div>
-    
-    <!-- Étoiles -->
-    <div class="stars" id="stars"></div>
+<!-- LOGO EN HAUT -->
+<div class="top-logo">
+    <div class="top-logo-text">LIFE CHANGERS</div>
+    <div class="top-logo-subtitle">AWARDS</div>
+</div>
 
-    <!-- Rayons de lumière -->
-    <div class="light-rays">
-        <div class="light-ray"></div>
-        <div class="light-ray"></div>
-        <div class="light-ray"></div>
-        <div class="light-ray"></div>
-        <div class="light-ray"></div>
+<!-- EFFET BATTEMENT DE CŒUR -->
+<div class="heartbeat-effect" id="heartbeatEffect"></div>
+
+<!-- ÉTOILES FLOTTANTES -->
+<div class="star-background" id="starBackground"></div>
+
+<!-- CHAMP D'ÉTOILES SCINTILLANTES -->
+<div class="star-field" id="starField"></div>
+
+<!-- LUMIÈRES SCANNANTES -->
+<div class="light-beams"></div>
+
+<!-- LOGO PRINCIPAL -->
+<div class="main-logo">
+    <div class="logo-text">
+        <!-- <img src="img/logo.png" alt=""> -->
     </div>
+    <div class="logo-subtitle">DES PRIX EXCLUSIFS</div>
+</div>
 
-    <!-- Halos lumineux -->
-    <div class="halo halo-1"></div>
-    <div class="halo halo-2"></div>
-    <div class="halo halo-3"></div>
-
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="title-lights">
-                <div class="title-light"></div>
-                <div class="title-light"></div>
-                <div class="title-light"></div>
-                <div class="title-light"></div>
-                <div class="title-light"></div>
-                <div class="title-light"></div>
-                <div class="title-light"></div>
-                <div class="title-light"></div>
-            </div>
-            <div class="logo-container">
-                <p class="logo">LIFE CHANGERS INTERNATIONAL ORGANISE</p>
-            </div>
-            <h1><span>L</span><span>I</span><span>F</span><span>E</span> <span>C</span><span>H</span><span>A</span><span>N</span><span>G</span><span>E</span><span>R</span><span>S</span><br><span>A</span><span>W</span><span>A</span><span>R</span><span>D</span><span>S</span></h1>
-            <div class="event-info">
-                <p>📅 <strong>Dimanche 21 Décembre 2025</strong> • À partir de 11 heures</p>
-                <p>📍 <strong>YAOUNDÉ</strong> - Palais des Congrès (situé au quartier BASTOS)</p>
-            </div>
-        </div>
-
-        <!-- Layout principal -->
-        <div class="main-content">
-            <!-- Section gauche -->
-            <div class="left-section">
-                <!-- Configuration du tirage -->
-                <div class="config-container" id="configContainer">
-                    <h2>⚙️ CONFIGURATION DU TIRAGE AU SORT</h2>
-                    <div class="input-group">
-                        <label for="nombreNumeros">🎫 Nombre total de participants :</label>
-                        <input type="number" id="nombreNumeros" min="1" max="10000" value="2500" placeholder="Ex: 2500">
-                    </div>
-                    <div style="text-align: center;">
-                        <button class="btn-config" onclick="demarrerTombola()">
-                            ✅ DÉMARRER LE TIRAGE AU SORT
-                        </button>
-                    </div>
+<!-- CONTENU PRINCIPAL -->
+<div class="container">
+    <div class="main-content">
+        
+        <!-- COLONNE GAUCHE : TIRAGE -->
+        <div class="glow-box">
+            <div id="configPanel">
+                <h2 style="color: #00FF88; text-align: center; margin-bottom: 30px;">
+                    ⚙️ CONFIGURATION DU TIRAGE
+                </h2>
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="display: block; color: #FFD700; margin-bottom: 10px; font-size: 1.1rem;">
+                        🎯 Nombre total de participants :
+                    </label>
+                    <input type="number" id="totalParticipants" 
+                           value="2500" min="201" max="100000"
+                           style="width: 100%; padding: 15px; font-size: 1.3rem; 
+                                  background: rgba(0,0,0,0.7); color: white; 
+                                  border: 2px solid #FFD700; border-radius: 10px;
+                                  text-align: center;">
                 </div>
-
-                <!-- Zone du numéro -->
-                <div class="numero-container" id="numeroContainer">
+                
+                <button class="glow-button" onclick="startTombola()" id="startBtn">
+                    <span>🚀 DÉMARRER LE TIRAGE</span>
+                </button>
+            </div>
+            
+            <div id="drawingPanel" style="display: none;">
+                <div class="number-display">
                     <div id="numero">---</div>
+                    <div id="segment" class="segment-display"></div>
                 </div>
-
-                <!-- Boutons -->
-                <div class="buttons-container" id="buttonsContainer" style="display: none;">
-                    <button class="btn-primary" onclick="lancerTirage()">
-                        🎰 LANCER LE TIRAGE
+                
+                <div class="buttons-container">
+                    <button class="glow-button" onclick="spin()" id="spinBtn">
+                        <span>🎰 TOURNER LA ROUE</span>
                     </button>
-                    <button class="btn-warning" onclick="reinitialiser()">
-                        🔄 RÉINITIALISER
+                    <button class="glow-button" onclick="resetAll()" id="resetBtn">
+                        <span>🔄 NOUVEAU TIRAGE</span>
                     </button>
-                    <button class="btn-info" onclick="exportExcel()">
-                        📤 EXPORTER LES RÉSULTATS
+                    <button class="glow-button" onclick="exportResults()" id="exportBtn">
+                        <span>📤 EXPORTER</span>
                     </button>
-                </div>
-            </div>
-
-            <!-- Section droite - Historique -->
-            <div class="right-section">
-                <div class="historique-container" id="historiqueContainer">
-                    <h3>🏆 GAGNANTS</h3>
-                    <ul id="listeGagnants"></ul>
                 </div>
             </div>
         </div>
+        
+        <!-- COLONNE DROITE : GAGNANTS -->
+        <div class="glow-box">
+            <h2 style="color: #FFD700; text-align: center; margin-bottom: 25px;">
+                🏆 LISTE DES GAGNANTS
+            </h2>
+            <div class="winners-list" id="winnersList">
+                <!-- Les gagnants apparaîtront ici -->
+            </div>
+            <div style="text-align: center; margin-top: 20px; color: #FFD700;">
+                <small>Nombre de gagnants: <span id="winnerCount">0</span></small>
+            </div>
+        </div>
+        
     </div>
+</div>
 
-    <audio id="son">
-        <source src="https://assets.mixkit.co/active_storage/sfx/2355/2355-preview.mp3" type="audio/mpeg">
-        <source src="https://www.soundjay.com/misc/sounds/drum-roll-1.mp3" type="audio/mpeg">
-    </audio>
-
-    <audio id="sonCoeur" loop>
-        <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_4a87fab53f.mp3" type="audio/mpeg">
-        <source src="https://assets.mixkit.co/active_storage/sfx/2487/2487-preview.mp3" type="audio/mpeg">
-    </audio>
-
-    <audio id="sonVictoire">
-        <source src="https://assets.mixkit.co/active_storage/sfx/2018/2018-preview.mp3" type="audio/mpeg">
-    </audio>
-
-
-
-    <script src="script.js"></script>
+<!-- ÉLÉMENTS AUDIO -->
+<audio id="heartbeatSound" loop>
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-heartbeat-1180.mp3" type="audio/mpeg">
+</audio>
+<audio id="spinningSound" loop>
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-slot-machine-1998.mp3" type="audio/mpeg">
+</audio>
+<audio id="winSound">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" type="audio/mpeg">
+</audio>
+<audio id="crowdSound">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-crowd-applause-2075.mp3" type="audio/mpeg">
+</audio>
 
 
+<script src="script.js"></script>
 </body>
 </html>
