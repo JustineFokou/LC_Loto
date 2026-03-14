@@ -61,6 +61,8 @@
     flex-direction: column;
     align-items: center;
     padding: 0 20px 60px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   /* ── HEADER ── */
@@ -68,8 +70,11 @@
     width: 100%;
     max-width: 900px;
     text-align: center;
-    padding: 40px 20px 0;
+    padding: 16px 20px 0;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .logo-text {
@@ -100,7 +105,7 @@
 
   .theme-badge {
     display: inline-block;
-    margin-top: 16px;
+    margin-top: 8px;
     padding: 8px 28px;
     background: linear-gradient(90deg, var(--red) 0%, var(--red-bright) 50%, var(--red) 100%);
     border: 1px solid var(--gold-dark);
@@ -131,7 +136,7 @@
     width: 100%;
     max-width: 600px;
     height: 1px;
-    margin: 28px auto;
+    margin: 12px auto;
     background: linear-gradient(90deg, transparent, var(--gold-dark), var(--gold), var(--gold-dark), transparent);
     position: relative;
   }
@@ -151,7 +156,7 @@
   .counter-bar {
     display: flex;
     gap: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
   }
   .counter-chip {
     padding: 6px 20px;
@@ -171,7 +176,7 @@
   /* ── DRUM MACHINE ── */
   .drum-container {
     width: 100%;
-    max-width: 700px;
+    max-width: 860px;
     position: relative;
   }
 
@@ -179,7 +184,7 @@
     background: radial-gradient(ellipse at 30% 20%, #2a1a00 0%, #0f0f0f 50%, #1a0000 100%);
     border: 2px solid var(--gold-dark);
     border-radius: 20px;
-    padding: 40px 30px;
+    padding: 50px 50px;
     position: relative;
     box-shadow:
       0 0 0 1px rgba(255,215,0,0.1),
@@ -206,7 +211,7 @@
     font-size: 14px;
     letter-spacing: 8px;
     color: var(--gold-dark);
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     text-transform: uppercase;
   }
 
@@ -214,8 +219,8 @@
   .number-display {
     position: relative;
     margin: 0 auto 30px;
-    width: 260px;
-    height: 180px;
+    width: 340px;
+    height: 240px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -250,7 +255,7 @@
 
   #numero {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 100px;
+    font-size: 140px;
     line-height: 1;
     color: transparent;
     background: linear-gradient(180deg, #FFFFFF 0%, #FFD700 40%, #B8860B 100%);
@@ -284,9 +289,9 @@
   .btn-tirage {
     display: block;
     margin: 0 auto;
-    padding: 18px 60px;
+    padding: 22px 90px;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 24px;
+    font-size: 30px;
     letter-spacing: 5px;
     color: var(--black);
     background: linear-gradient(135deg, #FFD700 0%, #FFF0A0 40%, #FFD700 60%, #B8860B 100%);
@@ -348,7 +353,7 @@
     letter-spacing: 6px;
     color: var(--gold);
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     position: relative;
   }
   .section-title::after {
@@ -507,68 +512,45 @@
 
 
   /* ── LOGO WRAPPER ── */
+  /* ── LOGO WRAPPER — centré, sans fond noir, responsive ── */
   .logo-wrapper {
-    position: relative;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     margin: 0 auto 10px;
-    padding: 24px 32px 16px;
+    padding: 8px 0 4px;
+    position: relative;
   }
 
   .logo-img {
-    width: min(500px, 88vw);
+    display: block;
+    width: min(260px, 56vw);
+    height: auto;
     position: relative;
     z-index: 3;
+    filter: drop-shadow(0 0 22px rgba(255,215,0,0.6)) drop-shadow(0 0 50px rgba(255,180,0,0.25));
     animation: logoGlow 3s ease-in-out infinite alternate;
-    filter: drop-shadow(0 0 28px rgba(255,215,0,0.5)) drop-shadow(0 4px 16px rgba(0,0,0,0.7));
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
   }
 
-  /* Cadre lumineux pulsant derrière le logo */
-  .logo-glow-ring {
-    position: absolute;
-    inset: 0;
-    border-radius: 18px;
-    border: 1px solid rgba(255,215,0,0.18);
-    background: radial-gradient(ellipse at 50% 0%, rgba(255,215,0,0.07) 0%, rgba(139,0,0,0.05) 50%, transparent 70%);
-    z-index: 1;
-    animation: ringPulse 4s ease-in-out infinite alternate;
-  }
-  .logo-glow-ring2 {
-    inset: -8px;
-    border-color: rgba(255,215,0,0.08);
-    animation-delay: 1s;
-    animation-duration: 5s;
-  }
-  @keyframes ringPulse {
-    from { box-shadow: 0 0 20px rgba(255,215,0,0.1), inset 0 0 20px rgba(139,0,0,0.05); }
-    to   { box-shadow: 0 0 60px rgba(255,215,0,0.2), inset 0 0 40px rgba(139,0,0,0.1); }
-  }
-
-  /* Reflet lumineux qui balaie le logo */
-  .logo-shine {
-    position: absolute;
-    top: 0; left: -60%;
-    width: 40%; height: 100%;
-    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.07) 50%, transparent 60%);
-    z-index: 4;
-    border-radius: 18px;
-    animation: logoShine 6s ease-in-out infinite;
-    pointer-events: none;
-  }
-  @keyframes logoShine {
-    0%   { left: -60%; }
-    40%  { left: 130%; }
-    100% { left: 130%; }
-  }
+  .logo-glow-ring  { display: none; }
+  .logo-glow-ring2 { display: none; }
+  .logo-shine      { display: none; }
 
   /* Ligne déco sous le logo */
   .logo-wrapper::after {
     content: '';
     display: block;
-    width: 70%;
+    width: 60%;
     height: 1px;
-    margin: 12px auto 0;
+    margin: 10px auto 0;
     background: linear-gradient(90deg, transparent, rgba(255,215,0,0.5), var(--gold), rgba(255,215,0,0.5), transparent);
-    box-shadow: 0 0 10px rgba(255,215,0,0.4);
+    box-shadow: 0 0 8px rgba(255,215,0,0.35);
   }
 
 
@@ -589,6 +571,111 @@
     border-color: var(--red-bright) !important;
     color: var(--gold-light);
     box-shadow: 0 0 12px rgba(180,0,0,0.3);
+  }
+
+  /* ══════════════════════════════════════
+     RESPONSIVE — Mobile & Tablette
+  ══════════════════════════════════════ */
+
+  /* ── Tablette large ── */
+  @media (max-width: 900px) {
+    .drum-container { max-width: 98vw; }
+    .drum-outer { padding: 36px 28px; }
+    .winners-section { max-width: 98vw; }
+  }
+
+  /* ── Tablette standard ── */
+  @media (max-width: 720px) {
+    .wrapper { padding: 0 10px 40px; }
+
+    .logo-img { width: min(220px, 70vw); }
+
+    .theme-badge {
+      font-size: 11px;
+      padding: 6px 16px;
+      letter-spacing: 1px;
+    }
+
+    .divider { margin: 8px auto; }
+
+    .counter-bar {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .counter-chip {
+      font-size: 11px;
+      padding: 5px 14px;
+      letter-spacing: 1px;
+    }
+
+    .drum-outer {
+      padding: 28px 16px;
+      border-radius: 14px;
+    }
+    .drum-label {
+      font-size: 12px;
+      letter-spacing: 5px;
+    }
+
+    #numero { font-size: 100px; }
+    .number-display {
+      width: 240px;
+      height: 200px;
+    }
+
+    .btn-tirage {
+      padding: 16px 50px;
+      font-size: 22px;
+      letter-spacing: 3px;
+    }
+
+    .winner-row {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+    }
+    .winner-cell { padding: 8px 4px; }
+    .winner-number { font-size: 24px; }
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 480px) {
+    .logo-img { width: min(180px, 80vw); }
+
+    .counter-bar { gap: 6px; }
+    .counter-chip {
+      font-size: 10px;
+      padding: 4px 10px;
+    }
+
+    .drum-outer { padding: 20px 12px; }
+
+    #numero { font-size: 80px; }
+    .number-display {
+      width: 200px;
+      height: 170px;
+    }
+
+    .btn-tirage {
+      padding: 14px 36px;
+      font-size: 18px;
+      letter-spacing: 2px;
+    }
+
+    .winner-row { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    .winner-number { font-size: 22px; }
+
+    .section-title { font-size: 22px; letter-spacing: 4px; }
+    .winners-section { margin-top: 24px; }
+  }
+
+  /* ── Très petit mobile ── */
+  @media (max-width: 360px) {
+    .logo-img { width: min(160px, 85vw); }
+    #numero { font-size: 66px; }
+    .number-display { width: 170px; height: 148px; }
+    .btn-tirage { padding: 12px 28px; font-size: 16px; }
   }
 
 </style>
@@ -660,210 +747,232 @@ function getCtx() {
 }
 
 /* ════════════════════════════════════════
-   MUSIQUE DE FOND — Ambiance Awards épique
-   Basse profonde + nappes orchestrales + pad mystérieux
+   MUSIQUE DE FOND — Épopée Triomphale
+   Tonalité Ré Majeur, BPM 96, style fanfare orchestrale festive
+   Cuivres héroïques + cordes + timbales + arpèges de harpe
    ════════════════════════════════════════ */
 function startBgMusic() {
   if (bgMusicPlaying) return;
   bgMusicPlaying = true;
   const ctx = getCtx();
 
-  /* ── Masterbus compressor ── */
+  /* ── Masterbus ── */
   const master = ctx.createDynamicsCompressor();
-  master.threshold.value = -18;
-  master.knee.value = 10;
-  master.ratio.value = 4;
-  master.attack.value = 0.003;
-  master.release.value = 0.25;
+  master.threshold.value = -16;
+  master.knee.value = 8;
+  master.ratio.value = 5;
+  master.attack.value = 0.002;
+  master.release.value = 0.2;
   master.connect(ctx.destination);
 
-  /* ── Reverb convolution simulée via delay+feedback ── */
-  function makeReverb(dryGain=0.6, wetGain=0.4, delayTime=0.08, feedback=0.55) {
-    const dry = ctx.createGain(); dry.gain.value = dryGain;
-    const wet = ctx.createGain(); wet.gain.value = wetGain;
-    const delay = ctx.createDelay(2); delay.delayTime.value = delayTime;
-    const fb = ctx.createGain(); fb.gain.value = feedback;
-    delay.connect(fb); fb.connect(delay);
-    const send = ctx.createGain();
-    send.connect(dry); send.connect(delay); delay.connect(wet);
-    return { input: send, dry, wet };
+  /* ── Reverb hall ── */
+  function makeReverb(dry=0.55, wet=0.45, dt=0.1, fb=0.48) {
+    const dG = ctx.createGain(); dG.gain.value = dry;
+    const wG = ctx.createGain(); wG.gain.value = wet;
+    const dl = ctx.createDelay(2.5); dl.delayTime.value = dt;
+    const fbG = ctx.createGain(); fbG.gain.value = fb;
+    const dl2 = ctx.createDelay(2.5); dl2.delayTime.value = dt * 1.6;
+    const fbG2 = ctx.createGain(); fbG2.gain.value = fb * 0.7;
+    dl.connect(fbG); fbG.connect(dl); dl.connect(wG);
+    dl2.connect(fbG2); fbG2.connect(dl2); dl2.connect(wG);
+    const inp = ctx.createGain();
+    inp.connect(dG); inp.connect(dl); inp.connect(dl2);
+    dG.connect(master); wG.connect(master);
+    return inp;
   }
-  const verb = makeReverb(0.5, 0.5, 0.12, 0.5);
-  verb.dry.connect(master);
-  verb.wet.connect(master);
+  const verb = makeReverb();
 
-  /* ── Notes de la gamme mineure (Am) ── */
-  const ROOT = 110; /* La2 */
-  const scale = [1, 9/8, 6/5, 4/3, 3/2, 8/5, 9/5]; /* Am naturelle */
+  /* ── Gamme Ré Majeur (D) : D E F# G A B C# ── */
+  const ROOT = 146.83; /* D3 */
+  const SCALE = [1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8, 2]; // D maj
 
-  /* ── Basse profonde pulsante ── */
-  function playBassNote(freq, startTime, dur) {
-    const osc = ctx.createOscillator();
+  function freq(degree, octave=0) {
+    const d = ((degree % 7) + 7) % 7;
+    const oct = Math.floor(degree / 7) + octave;
+    return ROOT * SCALE[d] * Math.pow(2, oct);
+  }
+
+  /* ── Section cuivres (trompette synthétique) ── */
+  function brass(f, t, dur, vol=0.18) {
+    const o1 = ctx.createOscillator();
+    const o2 = ctx.createOscillator();
     const g = ctx.createGain();
-    const filter = ctx.createBiquadFilter();
-    filter.type = 'lowpass'; filter.frequency.value = 280; filter.Q.value = 2;
-    osc.type = 'sawtooth';
-    osc.frequency.value = freq;
-    g.gain.setValueAtTime(0, startTime);
-    g.gain.linearRampToValueAtTime(0.28, startTime + 0.05);
-    g.gain.setValueAtTime(0.22, startTime + dur - 0.3);
-    g.gain.exponentialRampToValueAtTime(0.001, startTime + dur);
-    osc.connect(filter); filter.connect(g); g.connect(verb.input);
-    osc.start(startTime); osc.stop(startTime + dur + 0.1);
-
-    /* Sub octave */
-    const sub = ctx.createOscillator();
-    const gSub = ctx.createGain();
-    const fSub = ctx.createBiquadFilter();
-    fSub.type = 'lowpass'; fSub.frequency.value = 160;
-    sub.type = 'sine'; sub.frequency.value = freq * 0.5;
-    gSub.gain.setValueAtTime(0, startTime);
-    gSub.gain.linearRampToValueAtTime(0.18, startTime + 0.08);
-    gSub.gain.exponentialRampToValueAtTime(0.001, startTime + dur);
-    sub.connect(fSub); fSub.connect(gSub); gSub.connect(master);
-    sub.start(startTime); sub.stop(startTime + dur + 0.1);
-    return [osc, sub];
+    const flt = ctx.createBiquadFilter();
+    flt.type = 'lowpass'; flt.frequency.value = 2400; flt.Q.value = 0.8;
+    o1.type = 'sawtooth'; o1.frequency.value = f;
+    o2.type = 'sawtooth'; o2.frequency.value = f * 1.003;
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(vol, t + 0.04);
+    g.gain.setValueAtTime(vol * 0.85, t + dur * 0.65);
+    g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    o1.connect(flt); o2.connect(flt); flt.connect(g); g.connect(verb);
+    o1.start(t); o1.stop(t + dur + 0.08);
+    o2.start(t); o2.stop(t + dur + 0.08);
   }
 
-  /* ── Nappe (pad) orchestrale ── */
-  function playPad(freq, startTime, dur, vol=0.12) {
-    const oscs = [1, 1.005, 0.5, 2].map(detune => {
+  /* ── Nappe cordes (violons) ── */
+  function strings(f, t, dur, vol=0.10) {
+    [1, 2, 0.5].forEach((mult, i) => {
       const o = ctx.createOscillator();
       const g = ctx.createGain();
-      const f = ctx.createBiquadFilter();
-      f.type = 'lowpass'; f.frequency.value = 1800; f.Q.value = 0.8;
-      o.type = detune === 0.5 ? 'sine' : 'triangle';
-      o.frequency.value = freq * detune;
-      g.gain.setValueAtTime(0, startTime);
-      g.gain.linearRampToValueAtTime(vol * (detune===2?0.4:detune===0.5?0.6:1), startTime + 0.4);
-      g.gain.setValueAtTime(vol * 0.85, startTime + dur - 0.6);
-      g.gain.exponentialRampToValueAtTime(0.001, startTime + dur);
-      o.connect(f); f.connect(g); g.connect(verb.input);
-      o.start(startTime); o.stop(startTime + dur + 0.2);
-      return o;
+      const flt = ctx.createBiquadFilter();
+      flt.type = 'bandpass'; flt.frequency.value = f * mult * 1.5; flt.Q.value = 2;
+      o.type = 'sawtooth'; o.frequency.value = f * mult * (1 + i * 0.002);
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(vol / (i+1), t + 0.18);
+      g.gain.setValueAtTime(vol * 0.7 / (i+1), t + dur - 0.3);
+      g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+      o.connect(flt); flt.connect(g); g.connect(verb);
+      o.start(t); o.stop(t + dur + 0.1);
     });
-    return oscs;
   }
 
-  /* ── Percussion grave (kick synthétique) ── */
-  function playKick(startTime, vol=0.5) {
-    const osc = ctx.createOscillator();
+  /* ── Basse héroïque ── */
+  function bass(f, t, dur, vol=0.30) {
+    const o = ctx.createOscillator();
+    const sub = ctx.createOscillator();
     const g = ctx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(160, startTime);
-    osc.frequency.exponentialRampToValueAtTime(40, startTime + 0.12);
-    g.gain.setValueAtTime(vol, startTime);
-    g.gain.exponentialRampToValueAtTime(0.001, startTime + 0.25);
-    osc.connect(g); g.connect(master);
-    osc.start(startTime); osc.stop(startTime + 0.3);
+    const flt = ctx.createBiquadFilter();
+    flt.type = 'lowpass'; flt.frequency.value = 300; flt.Q.value = 1.5;
+    o.type = 'sawtooth'; o.frequency.value = f * 0.5;
+    sub.type = 'sine'; sub.frequency.value = f * 0.25;
+    const gSub = ctx.createGain(); gSub.gain.value = 0.18;
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(vol, t + 0.04);
+    g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    o.connect(flt); flt.connect(g); g.connect(master);
+    sub.connect(gSub); gSub.connect(master);
+    o.start(t); o.stop(t + dur + 0.05);
+    sub.start(t); sub.stop(t + dur + 0.05);
+  }
 
-    /* Snap du click */
-    const buf = ctx.createBuffer(1, ctx.sampleRate * 0.04, ctx.sampleRate);
+  /* ── Timbales festives ── */
+  function timbal(t, pitchHz=80, vol=0.55) {
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'sine';
+    o.frequency.setValueAtTime(pitchHz * 1.4, t);
+    o.frequency.exponentialRampToValueAtTime(pitchHz, t + 0.15);
+    g.gain.setValueAtTime(vol, t);
+    g.gain.exponentialRampToValueAtTime(0.001, t + 0.55);
+    o.connect(g); g.connect(master);
+    o.start(t); o.stop(t + 0.6);
+    /* snap */
+    const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate*0.03), ctx.sampleRate);
     const d = buf.getChannelData(0);
-    for(let i=0;i<d.length;i++) d[i] = (Math.random()*2-1) * Math.pow(1-i/d.length,3);
+    for(let i=0;i<d.length;i++) d[i] = (Math.random()*2-1) * Math.pow(1-i/d.length, 2);
     const src = ctx.createBufferSource();
-    const gn = ctx.createGain(); gn.gain.value = 0.15;
+    const gn = ctx.createGain(); gn.gain.value = 0.12;
     src.buffer = buf; src.connect(gn); gn.connect(master);
-    src.start(startTime);
+    src.start(t);
   }
 
-  /* ── Hi-hat synthétique ── */
-  function playHat(startTime, vol=0.06) {
-    const buf = ctx.createBuffer(1, ctx.sampleRate * 0.08, ctx.sampleRate);
-    const d = buf.getChannelData(0);
-    for(let i=0;i<d.length;i++) d[i] = (Math.random()*2-1) * Math.pow(1-i/d.length,2);
-    const src = ctx.createBufferSource();
-    const f = ctx.createBiquadFilter(); f.type='highpass'; f.frequency.value=8000;
-    const g = ctx.createGain(); g.gain.value = vol;
-    src.buffer=buf; src.connect(f); f.connect(g); g.connect(master);
-    src.start(startTime);
-  }
-
-  /* ── Mélodie mystérieuse (harpe synthétique) ── */
-  function playArp(freq, startTime, dur) {
-    const osc = ctx.createOscillator();
+  /* ── Harpe arpégée ── */
+  function harp(f, t, vol=0.11) {
+    const o = ctx.createOscillator();
     const g = ctx.createGain();
-    const f = ctx.createBiquadFilter(); f.type='bandpass'; f.frequency.value=freq*2; f.Q.value=3;
-    osc.type = 'sine'; osc.frequency.value = freq * 2;
-    g.gain.setValueAtTime(0.12, startTime);
-    g.gain.exponentialRampToValueAtTime(0.001, startTime + dur);
-    osc.connect(f); f.connect(g); g.connect(verb.input);
-    osc.start(startTime); osc.stop(startTime + dur + 0.1);
+    o.type = 'sine'; o.frequency.value = f;
+    g.gain.setValueAtTime(vol, t);
+    g.gain.exponentialRampToValueAtTime(0.001, t + 1.2);
+    o.connect(g); g.connect(verb);
+    o.start(t); o.stop(t + 1.3);
   }
 
-  /* ════════════════════════════════
-     SÉQUENCEUR EN BOUCLE (8 mesures)
-     BPM ≈ 72  → beat = 0.833s
-  ════════════════════════════════ */
-  const BPM = 72;
+  /* ── Cymbale scintillante (hi-hat ouvert) ── */
+  function cymbal(t, vol=0.07) {
+    const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate*0.35), ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    for(let i=0;i<d.length;i++) d[i] = (Math.random()*2-1) * Math.pow(1-i/d.length, 1.2);
+    const src = ctx.createBufferSource();
+    const flt = ctx.createBiquadFilter(); flt.type='highpass'; flt.frequency.value=7000;
+    const g = ctx.createGain(); g.gain.value = vol;
+    src.buffer=buf; src.connect(flt); flt.connect(g); g.connect(master);
+    src.start(t);
+  }
+
+  /* ════════════════════════════════════════
+     SÉQUENCEUR — 8 mesures, D Majeur, 96 BPM
+     Motif : fanfare héroïque avec ponctuation de timbales
+     Progression : I – V – IV – I – VI – IV – V – I
+  ════════════════════════════════════════ */
+  const BPM = 96;
   const beat = 60 / BPM;
-  const bar = beat * 4;
+  const bar  = beat * 4;
 
-  const bassPattern = [
-    { deg:0, beats:4 }, { deg:6, beats:4 },
-    { deg:5, beats:4 }, { deg:3, beats:4 },
-    { deg:0, beats:4 }, { deg:6, beats:4 },
-    { deg:4, beats:2 }, { deg:5, beats:2 }, { deg:3, beats:4 }
+  /* Accords (degrés de la gamme D maj) */
+  const chords = [
+    [0, 2, 4],   /* I  = D  F# A  */
+    [4, 6, 9],   /* V  = A  C# E  */
+    [3, 5, 7],   /* IV = G  B  D  */
+    [0, 2, 4],   /* I  = D  F# A  */
+    [5, 7, 9],   /* VI = B  D  F# */
+    [3, 5, 7],   /* IV = G  B  D  */
+    [4, 6, 9],   /* V  = A  C# E  */
+    [0, 2, 4],   /* I  = D  F# A  (finale) */
   ];
 
-  const arpPattern = [
-    [0,2,4,7], [6,8,11,13], [5,7,9,12], [3,5,7,10]
+  /* Mélodie fanfare (notes en degrés) */
+  const melody = [
+    {d:4,b:0},{d:4,b:0.5},{d:5,b:1},{d:6,b:1.5},
+    {d:7,b:2},{d:6,b:2.5},{d:5,b:3},{d:4,b:3.5},
+    {d:3,b:4},{d:3,b:4.5},{d:4,b:5},{d:5,b:5.5},
+    {d:4,b:6},{d:2,b:6.5},{d:4,b:7},{d:4,b:7.5},
+    {d:5,b:8},{d:5,b:8.5},{d:6,b:9},{d:7,b:9.5},
+    {d:9,b:10},{d:7,b:10.5},{d:6,b:11},{d:5,b:11.5},
+    {d:4,b:12},{d:6,b:12.5},{d:9,b:13},{d:9,b:13.5},
+    {d:11,b:14},{d:9,b:14.5},{d:7,b:15},{d:7,b:15.5},
   ];
 
-  const padChords = [
-    [0,4,7], [6,10,13], [5,9,12], [3,7,10]
-  ];
+  /* Basse (root par mesure) */
+  const bassNotes = [0, 4, 3, 0, 5, 3, 4, 0];
 
-  function scheduleLoop(startOffset) {
-    let bt = ctx.currentTime + startOffset;
-    const totalBars = 8;
+  function scheduleLoop(offset) {
+    const now = ctx.currentTime + offset;
 
-    /* Basse */
-    let bassTime = bt;
-    let barIdx = 0;
-    bassPattern.forEach(({deg, beats}) => {
-      const freq = ROOT * scale[deg % scale.length] * Math.pow(2, Math.floor(deg/scale.length));
-      playBassNote(freq, bassTime, beats * beat * 0.92);
-      bassTime += beats * beat;
-      if(barIdx < totalBars * 4) barIdx++;
+    /* Cordes en nappes par mesure */
+    chords.forEach((chord, ci) => {
+      const t = now + ci * bar;
+      chord.forEach(d => strings(freq(d, 1), t, bar * 0.92, 0.08));
     });
 
-    /* Kick sur les temps forts */
-    for(let b=0; b<totalBars*4; b++) {
-      if(b % 4 === 0 || b % 4 === 2) {
-        playKick(bt + b*beat, b%4===0 ? 0.55 : 0.38);
-      }
-      if(b % 2 === 1) {
-        playHat(bt + b*beat + beat*0.5, 0.05);
-        playHat(bt + b*beat, 0.04);
-      }
+    /* Cuivres mélodie (trompettes) */
+    melody.forEach(({d, b}) => {
+      brass(freq(d, 2), now + b * beat, beat * 0.82, 0.15);
+    });
+
+    /* Basse héroïque */
+    bassNotes.forEach((d, i) => {
+      bass(freq(d, 0), now + i * bar, bar * 0.88);
+      /* Octave basse supplémentaire sur temps 1 et 3 */
+      bass(freq(d, -1), now + i * bar, beat * 0.5, 0.15);
+      bass(freq(d, -1), now + i * bar + beat * 2, beat * 0.5, 0.12);
+    });
+
+    /* Timbales sur temps forts */
+    for (let m = 0; m < 8; m++) {
+      const mt = now + m * bar;
+      timbal(mt, 98, 0.55);                      /* temps 1 */
+      timbal(mt + beat * 2, 80, 0.38);           /* temps 3 */
+      if (m === 7) timbal(mt + beat * 3, 110, 0.6); /* fill final */
     }
 
-    /* Pads par mesures de 2 bars */
-    padChords.forEach((chord, ci) => {
-      const chordStart = bt + ci*2*bar;
-      chord.forEach(deg => {
-        const freq = ROOT * scale[deg % scale.length] * Math.pow(2, Math.floor(deg/scale.length));
-        playPad(freq * 2, chordStart, 2*bar*0.95, 0.10);
-      });
+    /* Cymbales légères sur chaque temps pair */
+    for (let b2 = 0; b2 < 32; b2++) {
+      if (b2 % 2 === 1) cymbal(now + b2 * beat, 0.05);
+    }
+
+    /* Harpe arpégée (ornement) — toutes les 2 mesures */
+    [0, 1, 2, 3, 4, 5, 6, 7, 9, 11].forEach((d, i) => {
+      harp(freq(d % 8, 2), now + i * beat * 1.5, 0.10);
     });
 
-    /* Arpège mélodique */
-    arpPattern.forEach((notes, pi) => {
-      notes.forEach((deg, ni) => {
-        const freq = ROOT * scale[deg % scale.length] * Math.pow(2, Math.floor(deg/scale.length));
-        const t = bt + pi*bar + ni*(bar/notes.length);
-        playArp(freq, t, bar/notes.length * 0.8);
-      });
-    });
-
-    /* Reprogramme la prochaine boucle */
-    const loopDur = totalBars * bar;
-    const id = setTimeout(() => scheduleLoop(0), (loopDur - 0.3) * 1000);
+    /* Boucle */
+    const loopDur = 8 * bar;
+    const id = setTimeout(() => scheduleLoop(0), (loopDur - 0.4) * 1000);
     bgMusicNodes.push(id);
   }
 
-  scheduleLoop(0.5);
+  scheduleLoop(0.4);
 }
 
 function stopBgMusic() {

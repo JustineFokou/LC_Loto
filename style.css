@@ -1,4 +1,4 @@
-  :root {
+ :root {
     --gold: #FFD700;
     --gold-light: #FFF0A0;
     --gold-dark: #B8860B;
@@ -53,6 +53,8 @@
     flex-direction: column;
     align-items: center;
     padding: 0 20px 60px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   /* ── HEADER ── */
@@ -60,8 +62,11 @@
     width: 100%;
     max-width: 900px;
     text-align: center;
-    padding: 40px 20px 0;
+    padding: 16px 20px 0;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .logo-text {
@@ -92,7 +97,7 @@
 
   .theme-badge {
     display: inline-block;
-    margin-top: 16px;
+    margin-top: 8px;
     padding: 8px 28px;
     background: linear-gradient(90deg, var(--red) 0%, var(--red-bright) 50%, var(--red) 100%);
     border: 1px solid var(--gold-dark);
@@ -123,7 +128,7 @@
     width: 100%;
     max-width: 600px;
     height: 1px;
-    margin: 28px auto;
+    margin: 12px auto;
     background: linear-gradient(90deg, transparent, var(--gold-dark), var(--gold), var(--gold-dark), transparent);
     position: relative;
   }
@@ -143,7 +148,7 @@
   .counter-bar {
     display: flex;
     gap: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
   }
   .counter-chip {
     padding: 6px 20px;
@@ -163,7 +168,7 @@
   /* ── DRUM MACHINE ── */
   .drum-container {
     width: 100%;
-    max-width: 700px;
+    max-width: 860px;
     position: relative;
   }
 
@@ -171,7 +176,7 @@
     background: radial-gradient(ellipse at 30% 20%, #2a1a00 0%, #0f0f0f 50%, #1a0000 100%);
     border: 2px solid var(--gold-dark);
     border-radius: 20px;
-    padding: 40px 30px;
+    padding: 50px 50px;
     position: relative;
     box-shadow:
       0 0 0 1px rgba(255,215,0,0.1),
@@ -198,7 +203,7 @@
     font-size: 14px;
     letter-spacing: 8px;
     color: var(--gold-dark);
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     text-transform: uppercase;
   }
 
@@ -206,8 +211,8 @@
   .number-display {
     position: relative;
     margin: 0 auto 30px;
-    width: 260px;
-    height: 180px;
+    width: 340px;
+    height: 240px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -242,7 +247,7 @@
 
   #numero {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 100px;
+    font-size: 140px;
     line-height: 1;
     color: transparent;
     background: linear-gradient(180deg, #FFFFFF 0%, #FFD700 40%, #B8860B 100%);
@@ -276,9 +281,9 @@
   .btn-tirage {
     display: block;
     margin: 0 auto;
-    padding: 18px 60px;
+    padding: 22px 90px;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 24px;
+    font-size: 30px;
     letter-spacing: 5px;
     color: var(--black);
     background: linear-gradient(135deg, #FFD700 0%, #FFF0A0 40%, #FFD700 60%, #B8860B 100%);
@@ -340,7 +345,7 @@
     letter-spacing: 6px;
     color: var(--gold);
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     position: relative;
   }
   .section-title::after {
@@ -499,68 +504,45 @@
 
 
   /* ── LOGO WRAPPER ── */
+  /* ── LOGO WRAPPER — centré, sans fond noir, responsive ── */
   .logo-wrapper {
-    position: relative;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     margin: 0 auto 10px;
-    padding: 24px 32px 16px;
+    padding: 8px 0 4px;
+    position: relative;
   }
 
   .logo-img {
-    width: min(500px, 88vw);
+    display: block;
+    width: min(260px, 56vw);
+    height: auto;
     position: relative;
     z-index: 3;
+    filter: drop-shadow(0 0 22px rgba(255,215,0,0.6)) drop-shadow(0 0 50px rgba(255,180,0,0.25));
     animation: logoGlow 3s ease-in-out infinite alternate;
-    filter: drop-shadow(0 0 28px rgba(255,215,0,0.5)) drop-shadow(0 4px 16px rgba(0,0,0,0.7));
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
   }
 
-  /* Cadre lumineux pulsant derrière le logo */
-  .logo-glow-ring {
-    position: absolute;
-    inset: 0;
-    border-radius: 18px;
-    border: 1px solid rgba(255,215,0,0.18);
-    background: radial-gradient(ellipse at 50% 0%, rgba(255,215,0,0.07) 0%, rgba(139,0,0,0.05) 50%, transparent 70%);
-    z-index: 1;
-    animation: ringPulse 4s ease-in-out infinite alternate;
-  }
-  .logo-glow-ring2 {
-    inset: -8px;
-    border-color: rgba(255,215,0,0.08);
-    animation-delay: 1s;
-    animation-duration: 5s;
-  }
-  @keyframes ringPulse {
-    from { box-shadow: 0 0 20px rgba(255,215,0,0.1), inset 0 0 20px rgba(139,0,0,0.05); }
-    to   { box-shadow: 0 0 60px rgba(255,215,0,0.2), inset 0 0 40px rgba(139,0,0,0.1); }
-  }
-
-  /* Reflet lumineux qui balaie le logo */
-  .logo-shine {
-    position: absolute;
-    top: 0; left: -60%;
-    width: 40%; height: 100%;
-    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.07) 50%, transparent 60%);
-    z-index: 4;
-    border-radius: 18px;
-    animation: logoShine 6s ease-in-out infinite;
-    pointer-events: none;
-  }
-  @keyframes logoShine {
-    0%   { left: -60%; }
-    40%  { left: 130%; }
-    100% { left: 130%; }
-  }
+  .logo-glow-ring  { display: none; }
+  .logo-glow-ring2 { display: none; }
+  .logo-shine      { display: none; }
 
   /* Ligne déco sous le logo */
   .logo-wrapper::after {
     content: '';
     display: block;
-    width: 70%;
+    width: 60%;
     height: 1px;
-    margin: 12px auto 0;
+    margin: 10px auto 0;
     background: linear-gradient(90deg, transparent, rgba(255,215,0,0.5), var(--gold), rgba(255,215,0,0.5), transparent);
-    box-shadow: 0 0 10px rgba(255,215,0,0.4);
+    box-shadow: 0 0 8px rgba(255,215,0,0.35);
   }
 
 
@@ -581,4 +563,109 @@
     border-color: var(--red-bright) !important;
     color: var(--gold-light);
     box-shadow: 0 0 12px rgba(180,0,0,0.3);
+  }
+
+  /* ══════════════════════════════════════
+     RESPONSIVE — Mobile & Tablette
+  ══════════════════════════════════════ */
+
+  /* ── Tablette large ── */
+  @media (max-width: 900px) {
+    .drum-container { max-width: 98vw; }
+    .drum-outer { padding: 36px 28px; }
+    .winners-section { max-width: 98vw; }
+  }
+
+  /* ── Tablette standard ── */
+  @media (max-width: 720px) {
+    .wrapper { padding: 0 10px 40px; }
+
+    .logo-img { width: min(220px, 70vw); }
+
+    .theme-badge {
+      font-size: 11px;
+      padding: 6px 16px;
+      letter-spacing: 1px;
+    }
+
+    .divider { margin: 8px auto; }
+
+    .counter-bar {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .counter-chip {
+      font-size: 11px;
+      padding: 5px 14px;
+      letter-spacing: 1px;
+    }
+
+    .drum-outer {
+      padding: 28px 16px;
+      border-radius: 14px;
+    }
+    .drum-label {
+      font-size: 12px;
+      letter-spacing: 5px;
+    }
+
+    #numero { font-size: 100px; }
+    .number-display {
+      width: 240px;
+      height: 200px;
+    }
+
+    .btn-tirage {
+      padding: 16px 50px;
+      font-size: 22px;
+      letter-spacing: 3px;
+    }
+
+    .winner-row {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+    }
+    .winner-cell { padding: 8px 4px; }
+    .winner-number { font-size: 24px; }
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 480px) {
+    .logo-img { width: min(180px, 80vw); }
+
+    .counter-bar { gap: 6px; }
+    .counter-chip {
+      font-size: 10px;
+      padding: 4px 10px;
+    }
+
+    .drum-outer { padding: 20px 12px; }
+
+    #numero { font-size: 80px; }
+    .number-display {
+      width: 200px;
+      height: 170px;
+    }
+
+    .btn-tirage {
+      padding: 14px 36px;
+      font-size: 18px;
+      letter-spacing: 2px;
+    }
+
+    .winner-row { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    .winner-number { font-size: 22px; }
+
+    .section-title { font-size: 22px; letter-spacing: 4px; }
+    .winners-section { margin-top: 24px; }
+  }
+
+  /* ── Très petit mobile ── */
+  @media (max-width: 360px) {
+    .logo-img { width: min(160px, 85vw); }
+    #numero { font-size: 66px; }
+    .number-display { width: 170px; height: 148px; }
+    .btn-tirage { padding: 12px 28px; font-size: 16px; }
   }
